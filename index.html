@@ -11,7 +11,7 @@
             --accent-glow: rgba(0, 242, 255, 0.2);
             --text-main: #e6edf3;
             --text-muted: #8b949e;
-            --success: #2ecc71; /* Vibrant Emerald */
+            --success: #2ecc71; 
             --border: #30363d;
         }
 
@@ -25,7 +25,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
             margin: 0;
             color: var(--text-main);
         }
@@ -51,110 +51,75 @@
             border: 1px solid var(--border);
             box-shadow: 0 20px 80px rgba(0,0,0,0.6), 0 0 40px var(--accent-glow);
             padding: 0;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             position: relative;
+            max-height: 80vh; /* Keeps it from stretching off screen */
         }
 
         .header {
-            padding: 35px 30px 20px;
+            padding: 30px 30px 15px;
             background: linear-gradient(to bottom, rgba(255,255,255,0.03), transparent);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .header h2 { margin: 0; font-size: 20px; font-weight: 300; letter-spacing: 1px; }
+        .header p { margin: 5px 0 0; color: var(--accent); font-weight: 700; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; }
+
+        /* SCROLLABLE AREA */
+        .scroll-area {
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        .scroll-area::-webkit-scrollbar { width: 4px; }
+        .scroll-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        .app-list { list-style: none; padding: 0; margin: 0; }
+
+        .app-item {
+            display: flex; align-items: center;
+            padding: 16px 30px; text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s ease;
             border-bottom: 1px solid var(--border);
         }
 
-        .header h2 {
-            margin: 0;
-            font-size: 22px;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
+        .app-item:hover { background: rgba(0, 242, 255, 0.08); padding-left: 42px; }
 
-        .header p {
-            margin: 5px 0 0;
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 10px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        /* STATUS DOT WITH PULSE ANIMATION */
         .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--success);
-            margin-right: 20px;
-            position: relative;
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--success); margin-right: 20px;
             box-shadow: 0 0 12px var(--success);
             animation: pulse 2s infinite ease-in-out;
+            flex-shrink: 0;
         }
 
         @keyframes pulse {
-            0% { transform: scale(0.9); box-shadow: 0 0 8px var(--success); }
-            50% { transform: scale(1.1); box-shadow: 0 0 18px var(--success); }
-            100% { transform: scale(0.9); box-shadow: 0 0 8px var(--success); }
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
         }
 
-        .app-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .app-item {
-            display: flex;
-            align-items: center;
-            padding: 18px 30px;
-            text-decoration: none;
-            color: var(--text-main);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .app-item:hover {
-            background: rgba(0, 242, 255, 0.08);
-            padding-left: 42px;
-        }
-
-        .app-name {
-            font-size: 14px;
-            font-weight: 500;
-            flex-grow: 1;
-            letter-spacing: 0.5px;
-        }
+        .app-name { font-size: 13px; font-weight: 500; flex-grow: 1; letter-spacing: 0.5px; }
 
         .app-category {
-            font-size: 9px;
-            color: var(--text-muted);
+            font-size: 8px; color: var(--text-muted);
             border: 1px solid var(--border);
-            padding: 2px 8px;
-            margin-right: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 3px;
+            padding: 2px 8px; margin-right: 15px;
+            text-transform: uppercase; border-radius: 3px;
         }
 
-        .arrow {
-            color: var(--border);
-            font-size: 18px;
-            transition: 0.3s;
-        }
-
-        .app-item:hover .arrow {
-            color: var(--accent);
-            transform: translateX(5px);
-        }
+        .arrow { color: var(--border); font-size: 16px; transition: 0.3s; }
+        .app-item:hover .arrow { color: var(--accent); transform: translateX(5px); }
 
         .footer-status {
-            text-align: center;
-            padding: 15px;
-            font-size: 10px;
-            color: var(--text-muted);
-            letter-spacing: 2px;
+            text-align: center; padding: 12px;
+            font-size: 10px; color: var(--text-muted);
             background: rgba(0,0,0,0.3);
             border-top: 1px solid var(--border);
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -164,84 +129,93 @@
 
     <div class="list-container">
         <div class="header">
-            <h2>Deployed HIJIBIJIS</h2>
+            <h2>Deployed Hijibijis</h2>
             <p>Allied Digital Laboratory</p>
         </div>
 
-        <div class="app-list">
-            <a href="https://sahedwave.github.io/silk/" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Silk</div>
-                <div class="app-category">Physics</div>
-                <div class="arrow">→</div>
-            </a>
+        <div class="scroll-area">
+            <div class="app-list">
+                <a href="https://sahedwave.github.io/sound-to-shape/" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Sound to Shape</div>
+                    <div class="app-category">Audio</div>
+                    <div class="arrow">→</div>
+                </a>
 
-            <a href="https://sahedwave.github.io/real-water/" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Real Water</div>
-                <div class="app-category">Fluid</div>
-                <div class="arrow">→</div>
-            </a>
+                <a href="https://sahedwave.github.io/silk/" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Silk</div>
+                    <div class="app-category">Physics</div>
+                    <div class="arrow">→</div>
+                </a>
 
-            <a href="https://sahedwave.github.io/celestial-capsule/" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Celestial Capsule</div>
-                <div class="app-category">Cosmos</div>
-                <div class="arrow">→</div>
-            </a>
+                <a href="https://sahedwave.github.io/real-water/" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Real Water</div>
+                    <div class="app-category">Fluid</div>
+                    <div class="arrow">→</div>
+                </a>
 
-            <a href="https://manga-translator-mvp.onrender.com" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Manga Translator</div>
-                <div class="app-category">AI Tool</div>
-                <div class="arrow">→</div>
-            </a>
+                <a href="https://manga-translator-mvp.onrender.com" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Manga Translator</div>
+                    <div class="app-category">AI Tool</div>
+                    <div class="arrow">→</div>
+                </a>
 
-            <a href="https://witch-messenger-9qb84wohq-sahedwaves-projects.vercel.app" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Witch Messenger</div>
-                <div class="app-category">Comm</div>
-                <div class="arrow">→</div>
-            </a>
+                <a href="https://sahedwave.github.io/celestial-capsule/" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Celestial Capsule</div>
+                    <div class="app-category">Cosmos</div>
+                    <div class="arrow">→</div>
+                </a>
 
-            <a href="https://sahedwave.github.io/cosmicFlow/" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Cosmic Flow</div>
-                <div class="app-category">Visual</div>
-                <div class="arrow">→</div>
-            </a>
+                <a href="https://witch-messenger-9qb84wohq-sahedwaves-projects.vercel.app" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Witch Messenger</div>
+                    <div class="app-category">Comm</div>
+                    <div class="arrow">→</div>
+                </a>
 
-            <a href="https://sahedwave.github.io/projectile-motion/" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Projectile Motion</div>
-                <div class="app-category">Kinematics</div>
-                <div class="arrow">→</div>
-            </a>
+                <a href="https://sahedwave.github.io/cosmicFlow/" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Cosmic Flow</div>
+                    <div class="app-category">Visual</div>
+                    <div class="arrow">→</div>
+                </a>
 
-            <a href="https://sahedwave.github.io/mass-energy/" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Mass Energy</div>
-                <div class="app-category">Nuclear</div>
-                <div class="arrow">→</div>
-            </a>
+                <a href="https://sahedwave.github.io/projectile-motion/" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Projectile Motion</div>
+                    <div class="app-category">Kinematics</div>
+                    <div class="arrow">→</div>
+                </a>
 
-            <a href="https://sahedwave.github.io/aeris-wind/" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Aeris Wind</div>
-                <div class="app-category">Aero</div>
-                <div class="arrow">→</div>
-            </a>
+                <a href="https://sahedwave.github.io/mass-energy/" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Mass Energy</div>
+                    <div class="app-category">Nuclear</div>
+                    <div class="arrow">→</div>
+                </a>
 
-            <a href="https://sahedwave.github.io/mist-snake/" class="app-item">
-                <div class="status-dot"></div>
-                <div class="app-name">Mist Snake</div>
-                <div class="app-category">Game</div>
-                <div class="arrow">→</div>
-            </a>
+                <a href="https://sahedwave.github.io/aeris-wind/" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Aeris Wind</div>
+                    <div class="app-category">Aero</div>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a href="https://sahedwave.github.io/mist-snake/" class="app-item">
+                    <div class="status-dot"></div>
+                    <div class="app-name">Mist Snake</div>
+                    <div class="app-category">Game</div>
+                    <div class="arrow">→</div>
+                </a>
+            </div>
         </div>
 
         <div class="footer-status">
-            [ 10/10 MODULES ONLINE ]
+            [ 11/11 MODULES ONLINE ]
         </div>
     </div>
 
